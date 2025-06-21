@@ -71,18 +71,20 @@ class ERoPE(nn.Module):
         """
         super().__init__()
 
-    def forward(self, q, k, v, pos, theta=None):
+    def forward(self, q, k, v, pos, grid_u, grid_w, theta=None):
         """
         q : query node features [B, N, 1 or 2, (max_degree_qk+1)**2, dim_qk]
         k : key node features [B, N, 1 or 2, (max_degree_qk+1)**2, dim_qk]
         v : value node features [B, N, 1 or 2, (max_degree_v+1)**2, dim_v]
         pos : node coordinates [B, N, 3]
-        theta : [M]
+        grid_u : grid points on unit sphere for Lebedev quadrature [B, N_pts, 3]
+        grid_w : corresponding weights for Lebedev quadrature [B, N_pts]
+        theta : rotation frequencies for RoPE [M]
         """
 
         grid_u = None
-        pos_proj = torch.einsum("nd,md->nm", pos, grid_u) # [B, N]
-        sin, cos = calculate_rotary_position_embedding(pos_proj, theta) # [B, N, M, dim_qk]
+        pos_proj = torch.einsum("nd,md->nm", pos, grid_u) # [B, N, N_pts]
+        sin, cos = calculate_rotary_position_embedding(pos_proj, theta) # [B, N, N_pts, dim_qk]
 
         q = apply_rotary_position_embedding(q, sin, cos)  # (N, M, P, L, num_features_qk)
         k = apply_rotary_position_embedding(k, sin, cos)  # (N, M, P, L, num_features_qk)
@@ -92,3 +94,4 @@ class ERoPE(nn.Module):
         v = v.reshape(*v.shape[:-3], -1) # (B, N, dim_v)
 
         q = q / torch.sqrt(q.shape[-1])
+
