@@ -5,10 +5,7 @@ PyTorch implementation of Euclidean Fast Attention (EFA) and Euclidean RoPE (ERo
 
 [EFA](https://arxiv.org/abs/2412.08541) is an $O(3)$-equivariant, linear self-attention mechanism for 3D geometric data like molecules. Using kernelized attention, EFA can achieve all-to-all message passing. Euclidean Rotary Positional Encodings (ERoPE) is used to encode orientational information between pairs of nodes directly into the node features. EFA uses higher-order equivariant features from spherical harmonics, making it highly expressive. 
 
-```math
-\text{EFA}(\mathbf{h}_i, \vec{\mathbf{x}}_i) = \frac{1}{4\pi}\int_{S^2} \phi_{\vec{\mathbf{u}}}(\vec{\mathbf{x}}_i, \psi(\mathbf{q}_i))^\top\sum_{n=1}^{N} \phi_{\vec{\mathbf{u}}}(\vec{\mathbf{x}}_n, \psi(\mathbf{k}_n))\mathbf{v}^\top_n \otimes Y^{(l)}_m(\vec{\mathbf{u}})~~d\vec{\mathbf{u}}
-```
-
+![EFA Architecture](./assets/efa_banner.png)
 
 `torch-efa` is a fast and scalable PyTorch implementation of EFA and ERoPE for ML-based interatomic potentials or molecular systems.
 
