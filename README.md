@@ -6,7 +6,7 @@ PyTorch implementation of Euclidean Fast Attention (EFA) and Euclidean RoPE (ERo
 [EFA](https://arxiv.org/abs/2412.08541) is an O(3)-equivariant, linear self-attention mechanism for 3D geometric data like molecules. Using kernelized attention, EFA can achieve all-to-all message passing. The work also introduces Euclidean Rotary Positional Encodings (ERoPE), a mechanism to encode orientational information between pairs of nodes directly into the node features. 
 
 ```math
-\operatorname{EFA}(\mathbf{h}_i, \vec{\mathbf{x}}_i) = \frac{1}{4\pi}\int_{S^2} \phi_{\vec{\mathbf{u}}}(\vec{\mathbf{x}}_i, \psi(\mathbf{q}_i))^\top\sum_{n=1}^{N} \phi_{\vec{\mathbf{u}}}(\vec{\mathbf{x}}_n, \psi(\mathbf{k}_n))\mathbf{v}^\top_n \otimes Y^{(l)}_m(\vec{\mathbf{u}})~~d\vec{\mathbf{u}}
+\text{EFA}(\mathbf{h}_i, \vec{\mathbf{x}}_i) = \frac{1}{4\pi}\int_{S^2} \phi_{\vec{\mathbf{u}}}(\vec{\mathbf{x}}_i, \psi(\mathbf{q}_i))^\top\sum_{n=1}^{N} \phi_{\vec{\mathbf{u}}}(\vec{\mathbf{x}}_n, \psi(\mathbf{k}_n))\mathbf{v}^\top_n \otimes Y^{(l)}_m(\vec{\mathbf{u}})~~d\vec{\mathbf{u}}
 ```
 
 The surface integral on the sphere is approximated using [Lebedev Quadrature](https://en.wikipedia.org/wiki/Lebedev_quadrature).
