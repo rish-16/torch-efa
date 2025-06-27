@@ -49,7 +49,7 @@ y = efa(node_ftrs, pos) # [B, N_atoms, out_dim]
 
 ## Contributing
 
-Appreciate any 
+Appreciate any contributions in the form of PRs or Issues! 
 
 ## Citation
 
